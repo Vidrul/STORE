@@ -1,0 +1,7 @@
+{
+  "port": 8080,
+  "mongoUri": "mongodb+srv://David:react-store-1234@cluster0.ognhp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  "privateAccesseKey": "super private accesse key",
+  "privateRefreshKey": "super private refresh key",
+  "privatePasswordKey": "super private password key"
+}

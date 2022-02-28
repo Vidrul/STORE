@@ -1,0 +1,16 @@
+.MuiPagination-ul {
+  justify-content: center;
+  font-weight: bold;
+  width: 100%;
+}
+
+.MuiPagination-ul > li {
+  margin: 0 5px 0 5px;
+}
+
+.MuiPagination-ul li > button {
+  font-weight: bold;
+  font-size: 20px;
+}
+.MuiPaginationItem-sizeLarge {
+}

@@ -1,0 +1,6 @@
+{
+  "currency": "$",
+  "authBaseURL": "http://localhost:8080/api/auth/",
+  "baseURL": "http://localhost:8080/api/",
+  "adminId": "621643dec040134aea19bc49"
+}

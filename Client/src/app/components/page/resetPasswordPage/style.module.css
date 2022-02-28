@@ -1,0 +1,20 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  
+  }
+  
+  .container div {
+    text-align: center;
+  }
+  
+  .container p {
+    margin: 5px 0;
+  }
+  
+  .container a {
+    color: grey;
+  }
+  

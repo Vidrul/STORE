@@ -1,0 +1,14 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+
+.side_menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.main {
+}

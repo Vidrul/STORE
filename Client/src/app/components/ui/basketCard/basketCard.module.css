@@ -1,0 +1,54 @@
+.card {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin: 0 0 10px 0;
+  font-size: 20px;
+}
+
+.card__header {
+  display: flex;
+  align-items: center;
+  width: 33%;
+}
+
+.card__header_body {
+  display: flex;
+  flex-direction: column;
+  color: #1976d2;
+  padding: 20px;
+}
+
+.card__header_body a {
+  color: #1976d2;
+}
+
+.card__header_body > p {
+  display: inline;
+}
+
+.card__image {
+  width: 30%;
+}
+
+.card__body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 33%;
+}
+
+.card__footer {
+  width: 33%;
+  text-align: right;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.button__delete {
+  position: absolute !important;
+  top: 3px;
+  right: 1px;
+}

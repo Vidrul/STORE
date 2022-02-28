@@ -1,0 +1,8 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter {
+  background-color: #1976d2;
+}

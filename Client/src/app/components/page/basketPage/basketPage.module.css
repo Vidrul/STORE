@@ -1,0 +1,23 @@
+.basket {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.basket__body {
+  width: 100%;
+}
+
+.basket__total {
+  text-align: right;
+}
+
+.basket__actions {
+  margin-top: 10px;
+  text-align: right;
+}
+
+.basket__actions > button {
+  width: 200px;
+  height: 50px;
+}
