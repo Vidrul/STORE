@@ -1,0 +1,14 @@
+.form {
+}
+
+.form__price {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: #000;
+}
+
+.form__price p {
+  margin: 0 10px 0 10px;
+}

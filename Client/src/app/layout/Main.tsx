@@ -60,7 +60,7 @@ export const Main: FC = () => {
             sx={{ mb: 3, display: "flex", alignItems: "center" }}
           >
             <TextField
-              label="Search product"
+              label="Products search by category"
               type="text"
               value={query}
               name="query"

@@ -4,6 +4,10 @@ export function getGoods() {
   return (state: RootState) => state.goods.entities;
 }
 
+export function getFilteredGoods() {
+  return (state: RootState) => state.goods.filteredEntities;
+}
+
 export function getLoadingStatus() {
   return (state: RootState) => state.goods.isLoading;
 }

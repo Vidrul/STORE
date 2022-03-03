@@ -1,11 +1,13 @@
 import { createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IGoods } from "../../models/IGoods";
 import goodsService from "../../service/goods.service";
+import { IFilterData } from "../../types/types";
 import { isOutDated } from "../../utils/helper/isOutDated";
 import { AppDispatch, RootState } from "../store";
 
 interface GoodsInitialState {
   entities: IGoods[];
+  filteredEntities: IGoods[];
   isLoading: boolean;
   error: string;
   lastFetch: number | null;
@@ -13,6 +15,7 @@ interface GoodsInitialState {
 
 const initialState: GoodsInitialState = {
   entities: [],
+  filteredEntities: [],
   isLoading: true,
   error: "",
   lastFetch: null,
@@ -28,6 +31,7 @@ const goodsSlice = createSlice({
     goodsReceived: (state, action: PayloadAction<IGoods[]>) => {
       state.isLoading = false;
       state.entities = action.payload;
+      state.filteredEntities = action.payload;
       state.lastFetch = Date.now();
       state.error = "";
     },
@@ -51,6 +55,18 @@ const goodsSlice = createSlice({
         (item) => item._id !== action.payload
       );
     },
+
+    productsFiltered: (state, action: PayloadAction<IFilterData>) => {
+      console.log(state.entities);
+      const initialEntities = state.entities;
+      const maxPrice =
+        action.payload.maxPrice === 0 ? 9999 : Number(action.payload.maxPrice);
+      state.filteredEntities = initialEntities.filter(
+        (item) =>
+          item.price >= Number(action.payload.minPrice) &&
+          item.price <= maxPrice
+      );
+    },
   },
 });
 
@@ -63,6 +79,7 @@ const {
   productAdded,
   productUpdatedSuccess,
   productRemovedSuccess,
+  productsFiltered,
 } = actions;
 
 const productUpdateRequested = createAction("goods/productUpdateRequested");
@@ -71,18 +88,15 @@ const productCreateRequested = createAction("goods/productCreateRequested");
 
 export const getGoodsList =
   () => async (dispatch: AppDispatch, getState: () => RootState) => {
-    const { lastFetch } = getState().goods;
+    dispatch(goodsRequested());
+    try {
+      const { content } = await goodsService.get();
 
-    if (isOutDated(lastFetch || 0)) {
-      dispatch(goodsRequested());
-      try {
-        const { content } = await goodsService.get();
-        setTimeout(() => {
-          dispatch(goodsReceived(content));
-        }, 1500);
-      } catch (error: any) {
-        dispatch(goodsRejected(error.message));
-      }
+      setTimeout(() => {
+        dispatch(goodsReceived(content));
+      }, 1000);
+    } catch (error: any) {
+      dispatch(goodsRejected(error.message));
     }
   };
 
@@ -119,6 +133,11 @@ export const createNewProduct =
     } catch (error: any) {
       dispatch(goodsRejected(error.message));
     }
+  };
+
+export const filterGoods =
+  (payload: IFilterData) => async (dispatch: AppDispatch) => {
+    dispatch(productsFiltered(payload));
   };
 
 export default goodsReducer;

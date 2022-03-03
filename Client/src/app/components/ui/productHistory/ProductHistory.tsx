@@ -33,7 +33,6 @@ const ProductHistory: FC<ProductHistoryProps> = ({
         <Link
           to={`/${currentCategory?.name}`}
           state={{ manufacturer: currentManufacturer?._id }}
-          
         >
           {currentManufacturer?.name.toLocaleLowerCase()}
         </Link>

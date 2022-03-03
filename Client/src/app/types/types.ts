@@ -36,3 +36,7 @@ export interface IResetPass {
   confirmPassword: string;
   token?: string;
 }
+export interface IFilterData {
+  minPrice: number;
+  maxPrice: number;
+}

@@ -3,6 +3,18 @@
   justify-content: space-between;
 }
 
+.main {
+  padding: 0 50px;
+  width: 100%;
+  text-align: right;
+}
+
+.main__content {
+  text-align: left;
+  overflow-y:scroll;
+  height: 70vh;
+}
+
 .filter {
   background-color: #1976d2;
 }

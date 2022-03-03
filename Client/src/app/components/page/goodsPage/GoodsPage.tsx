@@ -1,28 +1,25 @@
 import { Box, Button, Paper } from "@mui/material";
 import { FC, useEffect, useState } from "react";
-import {
-  useLocation,
-  useOutletContext,
-  useParams,
-  useSearchParams,
-  Location,
-} from "react-router-dom";
-import { ISortedBy, IOutle } from "../../../types/types";
+import { useLocation, useOutletContext, useParams } from "react-router-dom";
+import { ISortedBy, IOutle, IFilterData } from "../../../types/types";
 import Card from "../../ui/ProductCard";
 import List from "../../common/List";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import _ from "lodash";
-import { useAppSelector } from "../../../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { IGoods } from "../../../models/IGoods";
-import { getGoods } from "../../../store/selectors/goodsSelectors";
+import { getFilteredGoods } from "../../../store/selectors/goodsSelectors";
 import styles from "./goodsPage.module.css";
 import { getCurrentCategoryByName } from "../../../store/selectors/categoriesSelector";
 import FilterForm from "../../common/Forms/filterForm/FilterForm";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { filterGoods } from "../../../store/reducers/GoodsSlice";
 
 interface IFilter {
   manufacturer: string[];
+  maxPrice: number;
+  minPrice: number;
 }
 
 interface ILocationState {
@@ -30,37 +27,37 @@ interface ILocationState {
 }
 
 const GoodsPage: FC = () => {
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const state = location.state as ILocationState;
-  const search = location.search;
 
   const { category } = useParams();
-  const goods = useAppSelector(getGoods());
+  const goods = useAppSelector(getFilteredGoods());
   const { query } = useOutletContext<IOutle>();
   const currentCategory = useAppSelector(
     getCurrentCategoryByName(category || "")
   );
-  const [searchParams, setSearchParams] = useSearchParams();
+
   const [sortedBy, setSortedBy] = useState<ISortedBy>({
     path: "price",
     order: "asc",
   });
 
-  const { control } = useForm<IFilter>({
+  const { control, watch, handleSubmit } = useForm<IFilter>({
     defaultValues: {
       manufacturer: state?.manufacturer ? [state.manufacturer] : [],
+      maxPrice: 0,
+      minPrice: 0,
     },
     mode: "onChange",
     reValidateMode: "onChange",
   });
 
-  const watch = useWatch({ control, name: "manufacturer" });
+  const manufacturers = watch("manufacturer");
 
-  useEffect(() => {
-    setSearchParams({
-      manufacturer: watch,
-    });
-  }, [watch]);
+  const onSubmit = (data: IFilterData) => {
+    dispatch(filterGoods(data));
+  };
 
   const handleOrderBy = () => {
     setSortedBy((prevState: ISortedBy) => ({
@@ -69,11 +66,15 @@ const GoodsPage: FC = () => {
     }));
   };
 
+  useEffect(() => {
+    
+  }, [])
+
   if (goods) {
     const filterGoods = (items: IGoods[]) => {
       const filteredGoods: Array<IGoods> = [];
       items.forEach((item) => {
-        for (const manufacturer of searchParams.getAll("manufacturer")) {
+        for (const manufacturer of manufacturers) {
           if (item.manufacturer === manufacturer) filteredGoods.push(item);
         }
       });
@@ -96,9 +97,9 @@ const GoodsPage: FC = () => {
     return (
       <Box className={styles.wrapper}>
         <Paper className={styles.filter}>
-          <FilterForm control={control} />
+          <FilterForm control={control} onSubmit={handleSubmit(onSubmit)} />
         </Paper>
-        <Box sx={{ width: "65%", textAlign: "right", mb: 2 }}>
+        <Box className={styles.main}>
           <Button onClick={handleOrderBy}>
             {sortedBy.path}
             {sortedBy.order === "asc" ? (
@@ -107,7 +108,7 @@ const GoodsPage: FC = () => {
               <ArrowDropUpIcon />
             )}
           </Button>
-          <Box sx={{ overflow: "scroll", textAlign: "left", height: "70vh" }}>
+          <Box className={styles.main__content}>
             {sortedGoods.length ? (
               <List
                 items={sortedGoods}

@@ -15,6 +15,7 @@ const AppLoader: FC<IAppLoader> = ({ children }) => {
   const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector((state) => state.goods);
   const userLoginStatus = useAppSelector(getAuthorizedUserStatus());
+  
 
   useEffect(() => {
     dispatch(loadCategoriesList());
