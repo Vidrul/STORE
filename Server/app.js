@@ -6,6 +6,7 @@ const initDatabase = require("./startUp/initDatabase");
 const routes = require("./routes");
 var cors = require("cors");
 const app = express();
+const path = require("path");
 
 app.use(cors());
 
@@ -17,7 +18,12 @@ app.use("/api", routes);
 const PORT = config.get("port") ?? 8080;
 
 if (process.env.NODE_ENV === "production") {
-  console.log("Production");
+  app.use("/", express.static(path.join(__dirname, "client")));
+  const indexPath = path.join(__dirname, "client", "index.html");
+
+  app.get("*", (req, res) => {
+    res.sendFile(indexPath);
+  });
 } else {
   console.log("Development");
 }
