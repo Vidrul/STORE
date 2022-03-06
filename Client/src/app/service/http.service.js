@@ -7,7 +7,7 @@ import config from "../config/default.json";
 const PORT = process.env.PORT || 8080;
 
 const http = axios.create({
-  baseURL: `http://localhost:${PORT}/api/`,
+  baseURL: `https://sotore-preview.herokuapp.com/api`,
 });
 
 http.interceptors.request.use(

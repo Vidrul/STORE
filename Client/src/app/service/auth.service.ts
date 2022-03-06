@@ -5,7 +5,7 @@ import localStorageService from "./localStorage.service";
 const PORT = process.env.PORT || 8080;
 
 const httpAuth = axios.create({
-  baseURL: `http://localhost:${PORT}/api/auth/`,
+  baseURL: `https://sotore-preview.herokuapp.com/api/auth/`,
 });
 
 const authService = {
