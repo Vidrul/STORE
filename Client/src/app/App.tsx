@@ -12,6 +12,8 @@ import MainPage from "./components/page/mainPage/MainPage";
 import ProtectRoute from "./components/common/ProtectRoute";
 
 const App: FC = () => {
+  console.log(process.env.PORT);
+  
   return (
     <>
       <Routes>

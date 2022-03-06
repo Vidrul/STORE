@@ -4,8 +4,10 @@ import authService from "./auth.service";
 import localStorageService, { setTokens } from "./localStorage.service";
 import config from "../config/default.json";
 
+const PORT = process.env.PORT;
+
 const http = axios.create({
-  baseURL: `http://localhost:${process.env.PORT || 8080}/api/`,
+  baseURL: `http://localhost:${PORT}/api/`,
 });
 
 http.interceptors.request.use(
