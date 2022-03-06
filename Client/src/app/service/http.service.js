@@ -4,7 +4,7 @@ import authService from "./auth.service";
 import localStorageService, { setTokens } from "./localStorage.service";
 import config from "../config/default.json";
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8080;
 
 const http = axios.create({
   baseURL: `http://localhost:${PORT}/api/`,
