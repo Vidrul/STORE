@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/api", routes);
 
-const PORT = config.get("port") ?? 8080;
+const PORT = 8080;
 
 if (process.env.NODE_ENV === "production") {
   app.use("/", express.static(path.join(__dirname, "client")));
