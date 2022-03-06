@@ -1,6 +1,6 @@
 {
   "currency": "$",
-  "authBaseURL": "http://localhost:8080/api/auth/",
-  "baseURL": "http://localhost:8080/api/",
+  "authBaseURL": "https://sotore-preview.herokuapp.com/api/auth/",
+  "baseURL": "https://sotore-preview.herokuapp.com/api",
   "adminId": "621643dec040134aea19bc49"
 }

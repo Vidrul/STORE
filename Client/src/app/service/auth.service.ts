@@ -1,11 +1,10 @@
 import axios from "axios";
 import { ILogin, IRecoverPass, IResetPass } from "../types/types";
 import localStorageService from "./localStorage.service";
-
-const PORT = process.env.PORT || 8080;
+import config from "../config/default.json";
 
 const httpAuth = axios.create({
-  baseURL: `https://sotore-preview.herokuapp.com/api/auth/`,
+  baseURL: config.authBaseURL,
 });
 
 const authService = {

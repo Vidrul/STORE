@@ -4,10 +4,9 @@ import authService from "./auth.service";
 import localStorageService, { setTokens } from "./localStorage.service";
 import config from "../config/default.json";
 
-const PORT = process.env.PORT || 8080;
 
 const http = axios.create({
-  baseURL: `https://sotore-preview.herokuapp.com/api`,
+  baseURL: config.baseURL,
 });
 
 http.interceptors.request.use(
