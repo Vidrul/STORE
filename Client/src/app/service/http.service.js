@@ -5,7 +5,7 @@ import localStorageService, { setTokens } from "./localStorage.service";
 import config from "../config/default.json";
 
 const http = axios.create({
-  baseURL: config.baseURL,
+  baseURL: `http://localhost:${process.env.PORT || 8080}/api/`,
 });
 
 http.interceptors.request.use(

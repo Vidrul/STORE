@@ -3,7 +3,7 @@ import { ILogin, IRecoverPass, IResetPass } from "../types/types";
 import localStorageService from "./localStorage.service";
 
 const httpAuth = axios.create({
-  baseURL: "http://localhost:8080/api/auth/",
+  baseURL: `http://localhost:${process.env.PORT || 8080}/api/auth/`,
 });
 
 const authService = {
