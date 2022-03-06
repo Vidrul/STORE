@@ -57,10 +57,10 @@ const goodsSlice = createSlice({
     },
 
     productsFiltered: (state, action: PayloadAction<IFilterData>) => {
-      console.log(state.entities);
       const initialEntities = state.entities;
-      const maxPrice =
-        action.payload.maxPrice === 0 ? 9999 : Number(action.payload.maxPrice);
+      const maxPrice = action.payload.maxPrice
+        ? Number(action.payload.maxPrice)
+        : 9999;
       state.filteredEntities = initialEntities.filter(
         (item) =>
           item.price >= Number(action.payload.minPrice) &&
@@ -135,9 +135,9 @@ export const createNewProduct =
     }
   };
 
-export const filterGoods =
-  (payload: IFilterData) => async (dispatch: AppDispatch) => {
+export function filterGoods(payload: IFilterData) {
+  return (dispatch: AppDispatch) => {
     dispatch(productsFiltered(payload));
   };
-
+}
 export default goodsReducer;
