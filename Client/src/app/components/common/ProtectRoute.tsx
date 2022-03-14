@@ -8,9 +8,7 @@ interface ProtectRouteProps {
 }
 
 const ProtectRoute: FC<ProtectRouteProps> = ({ children }) => {
-  const adminId = config.adminId;
-
-  if (adminId !== localStorageService.getUserId()) {
+  if (!localStorageService.getUserId()) {
     return <Navigate to="/" />;
   }
 
