@@ -70,7 +70,6 @@ router.post("/signInWithPassword", [
   async (req, res) => {
     try {
       const errors = validationResult(req);
-
       if (!errors.isEmpty()) {
         return res.status(400).send({
           message: "INVALID_DATA",

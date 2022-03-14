@@ -1,6 +1,7 @@
 const express = require("express");
 const Goods = require("../models/Goods");
 const router = express.Router({ mergeParams: true });
+const auth = require("../middleware/auth.middleware");
 
 router.get("/", async (req, res) => {
   try {
@@ -13,11 +14,17 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.patch("/:id", async (req, res) => {
-  const { id } = req.params;
+router.patch("/:id", auth, async (req, res) => {
   try {
-    const content = await Goods.findByIdAndUpdate(id, req.body, { new: true });
-    res.status(200).json(content);
+    const userId = req.user._id;
+    const { id } = req.params;
+
+    if (userId) {
+      const content = await Goods.findByIdAndUpdate(id, req.body, {
+        new: true,
+      });
+      res.status(200).json(content);
+    }
   } catch (e) {
     res
       .status(500)
@@ -25,11 +32,14 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   const { id } = req.params;
   try {
-    const content = await Goods.findByIdAndDelete(id);
-    res.status(200).json(content);
+    const userId = req.user._id;
+    if (userId) {
+      const content = await Goods.findByIdAndDelete(id);
+      res.status(200).json(content);
+    }
   } catch (e) {
     res
       .status(500)
@@ -37,7 +47,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   try {
     const { name } = req.body;
     const existingProduct = await Goods.findOne({ name });

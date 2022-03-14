@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { Navigate } from "react-router-dom";
-import config from "../../config/default.json";
 import localStorageService from "../../service/localStorage.service";
 
 interface ProtectRouteProps {

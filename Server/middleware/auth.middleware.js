@@ -10,7 +10,9 @@ module.exports = (req, res, next) => {
     if (!token) {
       return res.status(401).json({ message: "Unauthorized" });
     }
+
     const data = validateAccessToken(token);
+
     req.user = data;
     next();
   } catch (e) {
